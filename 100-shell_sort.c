@@ -49,8 +49,9 @@ void swap(int *array, int i, int j)
  */
 void shell_sort(int *array, size_t size)
 {
-	int i, j, gap_list[] = {1, 4, 13, 40, 121};
+	int i, gap_list[] = {1, 4, 13, 40, 121};
 	int index = gap_index(size), gap, m, temp;
+	size_t j;
 
 	for (; index >= 0; index--)
 	{
