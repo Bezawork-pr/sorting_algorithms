@@ -35,15 +35,15 @@ int get_max_int(int *array, size_t size)
 void counting_sort(int *array, size_t size)
 {
 	size_t i, Maxnum = get_max_int(array, size);
-	int *out_array, *index_array, sum = 0, new_index, index;
+	int out_array[100], index_array[1000], sum = 0, new_index, index;
 
 
-	out_array = malloc(sizeof(int) * size +5);
-	index_array = malloc(sizeof(int) * Maxnum + 10);
-	if (out_array == NULL || index_array == NULL || size == 2 ||  !array)
+	/*out_array = malloc(sizeof(int) * size + 5);
+	index_array = malloc(sizeof(int) * Maxnum + 10);*/
+	if (/*out_array == NULL || index_array == NULL ||*/ size == 2 ||  !array)
 	{
-		free(out_array);
-		free(index_array);
+	/*	free(out_array);
+		free(index_array);*/
 		return;
 	}
 	for (i = 0; i <= Maxnum; i++)
@@ -60,7 +60,7 @@ void counting_sort(int *array, size_t size)
 		sum += index_array[i];
 		index_array[i] = sum;
 	}
-	print_array(index_array, 100);
+	print_array(index_array, Maxnum + 1);
 	for (i = 0; i < size; i++)
 	{
 		index = array[i];
@@ -71,6 +71,6 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = 0; i < size; i++)
 		array[i] = out_array[i];
-	free(out_array);
-	free(index_array);
+	/*free(out_array);
+	free(index_array);*/
 }
