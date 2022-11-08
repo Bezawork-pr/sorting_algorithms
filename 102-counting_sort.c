@@ -34,7 +34,7 @@ int get_max_int(int *array, size_t size)
 void counting_sort(int *array, size_t size)
 {
 	size_t i, Maxnum = get_max_int(array, size);
-	int outputArray[100], index_array[1000], sum = 0, new_index, index;
+	int outputArray[100], index_array[2000], sum = 0, new_index, index;
 
 
 	/*outputArray = malloc(sizeof(int) * size + 5);
