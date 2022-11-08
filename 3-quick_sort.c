@@ -12,7 +12,7 @@
  *
  * Return: index of Pivot
  */
-int swap(int *array, int lo, int hi, size_t size)
+int getpivot(int *array, int lo, int hi, size_t size)
 {
 	int i = lo - 1, j, pivot, temp;
 
@@ -25,13 +25,16 @@ int swap(int *array, int lo, int hi, size_t size)
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
+			if (i != j)
+				print_array(array, size);
 		}
 	}
 	i++;
 	temp = array[i];
 	array[i] = array[hi];
 	array[hi] = temp;
-	print_array(array, size);
+	if (i != j)
+		print_array(array, size);
 	return (i);
 }
 /**
@@ -50,12 +53,13 @@ int swap(int *array, int lo, int hi, size_t size)
 void quicksort(int *array, int lo, int hi, size_t size)
 {
 	int pivotIndex;
-	if ((lo > hi) || (lo < 0))
-		return;
 
-	pivotIndex = swap(array, lo, hi, size);
-	quicksort(array, lo, pivotIndex -1, size);
-	quicksort(array, pivotIndex + 1, hi, size);
+	if (lo < hi)
+	{
+		pivotIndex = getpivot(array, lo, hi, size);
+		quicksort(array, lo, (pivotIndex - 1), size);
+		quicksort(array, (pivotIndex + 1), hi, size);
+	}
 }
 /**
  *
@@ -69,5 +73,7 @@ void quicksort(int *array, int lo, int hi, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	quicksort(array, 0, size-1, size);
+	if (size < 2)
+		return;
+	quicksort(array, 0, size - 1, size);
 }
