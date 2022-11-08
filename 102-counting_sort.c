@@ -38,11 +38,16 @@ int get_max_int(int *array, size_t size)
 void counting_sort(int *array, size_t size)
 {
 	size_t i, Maxnum = get_max_int(array, size);
-	int outputArray[70], index_array[500], sum = 0, new_index, index;
+	int *outputArray, *index_array, sum = 0, new_index, index;
 
-
-	if (size < 2 || array == NULL)
+	outputArray = malloc(sizeof(int) * size);
+	index_array = malloc(sizeof(int) * Maxnum + 1);
+	if (!outputArray || !index_array || size < 2 || array == NULL)
+	{
+		free(outputArray);
+		free(index_array);
 		return;
+	}
 	for (i = 0; i <= Maxnum; i++)
 		index_array[i] = 0;
 
@@ -67,4 +72,6 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = 0; i < size; i++)
 		array[i] = outputArray[i];
+	free(outputArray);
+	free(index_array);
 }
