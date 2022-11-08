@@ -37,8 +37,8 @@ void counting_sort(int *array, size_t size)
 	int *outputArray, *index_array, sum = 0, new_index, index;
 
 
-	outputArray = malloc(sizeof(int) * size + 1);
-	index_array = malloc(sizeof(int) * (Maxnum + 2));
+	outputArray = malloc(sizeof(int) * size + 2);
+	index_array = malloc(sizeof(int) * (Maxnum + 3));
 	if (outputArray == NULL || index_array == NULL || size < 2 ||  !array)
 	{
 		free(outputArray);
