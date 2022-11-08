@@ -19,7 +19,7 @@ void selection_sort(int *array, size_t size)
 	for (i = 0; i < size - 1; i++)
 	{
 		minNum = array[i];
-		for (j = i + 1; j < size; j++)
+		for (j = i /*+ 1*/; j < size; j++)
 		{
 			if (array[j] < minNum)
 			{
@@ -27,11 +27,11 @@ void selection_sort(int *array, size_t size)
 				minNumIndex = j;
 			}
 		}
-		if (i != minNumIndex)
-		{
+		/*if (i != minNumIndex)
+		{*/
 			array[minNumIndex] = array[i];
 			array[i] = minNum;
 			print_array(array, size);
-		}
+		/*}*/
 	}
 }
