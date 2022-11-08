@@ -62,7 +62,7 @@ void quicksort(int *array, int lo, int hi, size_t size)
 	}
 }
 /**
- * quick_sort - C implementation of quick sort algorithm
+ * quick_sort_hoare - C implementation of quick sort algorithm
  *
  * @array: array to be sorted
  *
