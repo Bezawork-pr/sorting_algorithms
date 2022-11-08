@@ -13,6 +13,8 @@ void selection_sort(int *array, size_t size)
 	size_t minNumIndex, j, i;
 	int minNum;
 
+	if ((size >= 2) || !array)
+		return;
 	for (i = 0; i < size - 1; i++)
 	{
 		minNum = array[i];
