@@ -1,6 +1,6 @@
 #include "sort.h"
 /**
- * swap - checks and swaps
+ * getpivot - checks and swaps
  *
  * @array : pointer to the array to be modified
  *
@@ -21,7 +21,7 @@ int getpivot(int *array, int lo, int hi, size_t size)
 	{
 		if (array[j] <= pivot)
 		{
-			i ++;
+			i++;
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
@@ -62,7 +62,6 @@ void quicksort(int *array, int lo, int hi, size_t size)
 	}
 }
 /**
- *
  * quick_sort - C implementation of quick sort algorithm
  *
  * @array: array to be sorted
