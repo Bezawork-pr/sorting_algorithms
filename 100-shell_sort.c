@@ -13,6 +13,8 @@ unsigned int gapcalc(size_t size)
 
 	while (gap < size)
 		gap = 3 * gap + 1;
+	if (gap >= size)
+		gap = (gap - 1) / 3;
 	return (gap);
 }
 /**
@@ -48,6 +50,8 @@ void shell_sort(int *array, size_t size)
 	int i, gap = gapcalc(size), m, temp, flag;
 	size_t j;
 
+	if (array == NULL)
+		return;
 	for (; gap > 0; gap = (gap - 1) / 3)
 	{
 		j = gap;
