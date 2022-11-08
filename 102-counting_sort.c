@@ -25,6 +25,10 @@ int get_max_int(int *array, size_t size)
 /**
  * counting_sort - implementation of the counting sort algorithm
  *
+ * Initiate variable index_array with 0
+ * Add to 0 everytime there is occurance
+ * set index based on occurance and ascending order
+ * Get occurance and order from index array and save to newarray
  * @array: array
  *
  * @size: size of array
@@ -34,45 +38,33 @@ int get_max_int(int *array, size_t size)
 void counting_sort(int *array, size_t size)
 {
 	size_t i, Maxnum = get_max_int(array, size);
-	int *outputArray, *index_array, sum = 0, new_index, index;
+	int outputArray[100], index_array[500], sum = 0, new_index, index;
 
 
-	outputArray = malloc(sizeof(int) * size + 2);
-	index_array = malloc(sizeof(int) * (Maxnum + 3));
-	if (outputArray == NULL || index_array == NULL || size < 2 ||  !array)
-	{
-		free(outputArray);
-		free(index_array);
+	if (size < 2 || array == NULL)
 		return;
-	}
-	/*Initiate with 0 */
 	for (i = 0; i <= Maxnum; i++)
 		index_array[i] = 0;
 
-	/* add to 0 everytime there is occurance */
 	for (i = 0; i < size; i++)
 	{
 
 		index = array[i];
 		index_array[index]++;
 	}
-	/* set index based on occurance and ascending order*/
 	for (i = 0; i <= Maxnum; i++)
 	{
 		sum += index_array[i];
 		index_array[i] = sum;
 	}
 	print_array(index_array, Maxnum + 1);
-	/* Get occurance and order from index array and save to newarray */
 	for (i = 0; i < size; i++)
 	{
 		index = array[i];
-		new_index = index_array[index]- 1;
+		new_index = index_array[index] - 1;
 		index_array[index]--;
 		outputArray[new_index] = array[i];
 	}
 	for (i = 0; i < size; i++)
 		array[i] = outputArray[i];
-	free(outputArray);
-	free(index_array);
 }
