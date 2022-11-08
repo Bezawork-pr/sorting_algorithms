@@ -27,10 +27,10 @@ void selection_sort(int *array, size_t size)
 				minNumIndex = j;
 			}
 		}
+		array[minNumIndex] = array[i];
+		array[i] = minNum;
 		if (i != minNumIndex)
 		{
-			array[minNumIndex] = array[i];
-			array[i] = minNum;
 			print_array(array, size);
 		}
 	}
