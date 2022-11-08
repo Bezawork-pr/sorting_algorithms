@@ -1,23 +1,19 @@
 #include "sort.h"
 #include <stdio.h>
 /**
- * gap_index - Returns index
+ * gapcalc - Returns index
  *
  * @size: Takes size of array
  *
  * Return: index
  */
-int gap_index(size_t size)
+unsigned int gapcalc(size_t size)
 {
-	if (size <= 7)
-		return (0);
-	else if ((size > 7) && (size <= 25))
-		return (1);
-	else if ((size > 25) && (size <= 79))
-		return (2);
-	else if ((size > 79) && (size <= 240))
-		return (3);
-	return (4);
+	unsigned int gap = 1;
+
+	while (gap < size)
+		gap = 3 * gap + 1;
+	return (gap);
 }
 /**
  * swap - swaps postion
@@ -49,18 +45,20 @@ void swap(int *array, int i, int j)
  */
 void shell_sort(int *array, size_t size)
 {
-	int i, gap_list[] = {1, 4, 13, 40, 121};
-	int index = gap_index(size), gap, m, temp;
+	int i, gap = gapcalc(size), m, temp, flag;
 	size_t j;
 
-	for (; index >= 0; index--)
+	for (; gap > 0; gap = (gap - 1) / 3)
 	{
-		gap = gap_list[index];
 		j = gap;
+		flag = 0;
 		for (i = 0; j < size; i++)
 		{
 			if (array[i] > array[j])
+			{
 				swap(array, i, j);
+				flag = 1;
+			}
 			if (gap > 1)
 			{
 				if ((i - gap >= 0) && (array[i] < array[i - gap]))
@@ -75,13 +73,13 @@ void shell_sort(int *array, size_t size)
 						temp = array[m];
 						array[m] = array[m - 1];
 						array[m - 1] = temp;
+						flag = 1;
 					}
-
 				}
-
 			}
 			j++;
 		}
-		print_array(array, size);
+		if (flag == 1)
+			print_array(array, size);
 	}
 }
