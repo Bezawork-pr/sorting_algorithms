@@ -1,6 +1,50 @@
 #include "sort.h"
+#include <stdio.h>
 /**
- * swap - Swaps by finding the smallest element
+ * firstelementswap - Handles swap when element needs to
+ * be swaped with the first element
+ *
+ * @current: current
+ *
+ * @list: head of list
+ *
+ * Return: 1 used as flag to return as it is the end of swapping
+ */
+int firstelementswap(listint_t *current, listint_t **list)
+{
+	listint_t *copy = *list;
+
+	current->prev = NULL;
+	current->next = copy;
+	copy->prev = current;
+	*list = current;
+	return (1);
+}
+/**
+ * singleswaphandler - Handles swap between previous
+ * and current when previous->prev is not NULL
+ *
+ * @previous: previous of current
+ *
+ * @current: current element
+ *
+ * Return: void
+ */
+void singleswaphandler(listint_t *previous, listint_t *current)
+{
+	listint_t *prevofPrevious;
+
+
+	prevofPrevious = previous->prev;
+	current->prev = prevofPrevious;
+	prevofPrevious->next = current;
+	current->next = previous;
+	previous->prev = current;
+
+}
+/**
+ * swap - Calls singleswaphandler when
+ * previous->n > current->n
  *
  * @swap: Doubly linked list
  *
@@ -10,34 +54,41 @@
  */
 void swap(listint_t *swap, listint_t **list)
 {
-	listint_t *previous, *nxt, *printlist, *copy;
+	listint_t *previous = swap, *nxt, *current = swap, *copy;
+	int flag = 1, initial_value_flag = 0;
 
-	previous = swap->prev;
-	nxt = swap->next;
-
-	while ((previous->prev != NULL) && (previous->prev->n > swap->n))
-		previous = previous->prev;
-	swap->prev->next = nxt;
-	if (nxt != NULL)
-		nxt->prev = swap->prev;
-	if (previous->prev == NULL)
+	while (flag == 1)
 	{
-		copy = *list;
-		swap->prev = NULL;
-		swap->next = copy;
-		copy->prev = swap;
-		*list = swap;
-		return;
+		flag = 0;
+		while (previous)
+		{
+			flag = 0;
+			if (current->prev != NULL)
+				previous = current->prev;
+			nxt = current->next;
+			if (previous->n > current->n)
+			{
+				flag = 1;
+				if (previous->prev != NULL)
+					singleswaphandler(previous, current);
+				else
+					initial_value_flag = firstelementswap(current, list);
+				previous->next = nxt;
+				if (nxt != NULL)
+					nxt->prev = previous;
+				copy = *list;
+				print_list(copy);
+				if (initial_value_flag == 1)
+					return;
+			}
+			if ((current->prev->prev != NULL) && (flag == 0))
+				current = current->prev;
+			else if ((current->prev->prev != NULL) && (flag == 1))
+				continue;
+			else
+				break;
+		}
 	}
-	else
-	{
-		swap->prev = previous->prev;
-		swap->prev->next = swap;
-	}
-	swap->next = previous;
-	previous->prev = swap;
-	printlist = *list;
-	print_list(printlist);
 }
 
 /**
@@ -61,19 +112,13 @@ void insertion_sort_list(listint_t **list)
 	}
 	if (counter <= 2)
 		return;
-	while (current != NULL)
+	current = current->next;
+	while (current)
 	{
 		previous = current->prev;
 		nxt = current->next;
-		if (previous == NULL)
-		{
-			current = nxt;
-			continue;
-		}
-
 		if (previous->n > current->n)
 			swap(current, list);
 		current = nxt;
-		continue;
 	}
 }
