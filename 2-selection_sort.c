@@ -1,5 +1,6 @@
 #include "sort.h"
 #include <stdio.h>
+#include <stdio.h>
 /**
  *selection_sort - C implementation of selction sort
  *
@@ -27,7 +28,7 @@ void selection_sort(int *array, size_t size)
 				minNumIndex = j;
 			}
 		}
-		if (i != minNumIndex)
+		if ((i != minNumIndex) && (minNumIndex != 1000))
 		{
 			array[minNumIndex] = array[i];
 			array[i] = minNum;
