@@ -12,7 +12,7 @@
  */
 void selection_sort(int *array, size_t size)
 {
-	unsigned int minNumIndex = 1000, j, i;
+	size_t minNumIndex = 1000, j, i;
 	int minNum;
 
 	if (array == NULL)
